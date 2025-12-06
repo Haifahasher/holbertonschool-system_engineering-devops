@@ -1,0 +1,30 @@
+# Simple Web Stack
+
+## Infrastructure Diagram
+
+```mermaid
+flowchart LR
+    Users[👥 Users] -->|Requests| WWW[🌐 WWW<br/>foobar.com]
+    WWW -->|Asks for IP mapped to<br/>www.foobar.com| DNS[🌍 DNS]
+    DNS -->|Address IP:<br/>8.8.8.8| Internet[☁️ Internet]
+    Internet --> Server[🖥️ Server<br/>IP: 8.8.8.8]
+    
+    subgraph ServerContainer[" "]
+        direction TB
+        WebServer[🌐 Web Server<br/>Nginx]
+        AppServer[⚙️ Application Server]
+        Database[(🗄️ SQL Database<br/>MySQL)]
+        AppFiles[📁 Application Files<br/>Codebase]
+        
+        WebServer <-->|HTTP Requests| AppServer
+        AppServer <-->|Queries| Database
+        AppFiles -->|Serves| WebServer
+        AppFiles <-->|Executes| AppServer
+    end
+    
+    Server -.->|Contains| ServerContainer
+    
+    style ServerContainer fill:#e1f5ff,stroke:#333,stroke-width:2px
+```
+
+
